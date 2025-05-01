@@ -1,0 +1,149 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Digitaliza o código de barras</title>
+  <style>
+    /* Reset & base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: #faf8f2;
+      color: #2e3a34;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* Header */
+    header {
+      padding: 1rem;
+      position: relative;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    header .back {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+    }
+
+    /* Main content */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .camera-frame {
+      width: 80%;
+      max-width: 320px;
+      aspect-ratio: 4/3;
+      background: #555;
+      border-radius: 1rem;
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    /* red corner markers */
+    .camera-frame::before,
+    .camera-frame::after,
+    .camera-frame span::before,
+    .camera-frame span::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #e63946;
+    }
+    .camera-frame::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+    .camera-frame::after  { top: 0; right: 0; border-left: none; border-bottom: none; }
+    .camera-frame span::before { bottom: 0; left: 0; border-right: none; border-top: none; }
+    .camera-frame span::after  { bottom: 0; right: 0; border-left: none; border-top: none; }
+    .camera-frame span {
+      display: block;
+      width: 100%; height: 100%;
+    }
+
+    .instruction {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    .scan-btn {
+      background: #265a40;
+      color: white;
+      border: none;
+      padding: 1rem 1.25rem;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    /* Bottom nav */
+    .bottom-nav {
+      background: #265a40;
+      padding: 0.75rem 0;
+      text-align: center;
+    }
+    .bottom-nav a {
+      color: white;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="javascript:history.back()" class="back">&larr;</a>
+    Digitaliza o código de barras
+  </header>
+
+  <main>
+    <div class="camera-frame"><span></span></div>
+    <p class="instruction">Faz scan do código de barras do teu produto</p>
+    <button class="scan-btn">📷</button>
+  </main>
+
+
+  <nav class="navbar navbar-expand fixed-bottom navbar-dark bg-success">
+    <div class="container d-flex justify-content-around">
+      <a class="input-area-icon_nice">
+          <img src="{% static 'icons/home.png' %}" alt="Send"> {# Use your send icon #}
+          </button>
+      </a>
+      <a class="input-area-icon_nice">
+          <img src="{% static 'icons/product_scan.png' %}" alt="Send"> {# Use your send icon #}
+          </button>
+      </a>
+      <a class="input-area-icon_nice_1">
+          <img src="{% static 'icons/chat.png' %}" alt="Send"> {# Use your send icon #}
+          </button>
+      </a>
+      <a class="input-area-icon_nice_2">
+          <img src="{% static 'icons/food_bascket.png' %}" alt="Send"> {# Use your send icon #}
+          </button>
+      </a>
+      <a class="input-area-icon_nice">
+          <img src="{% static 'icons/profile.png' %}" alt="Send"> {# Use your send icon #}
+          </button>
+      </a>
+    </div>
+  </nav>
+
+  <nav class="bottom-nav">
+    <a href="{% url 'main' %}">🏠</a>
+  </nav>
+
+</body>
+</html>
