@@ -1,0 +1,3 @@
+# config.toml
+api_key1 = "AIzaSyA-INV2DjEI4hyd8darOUoU4R-Cv-gq_AY"
+embed_model_path = "/home/diogo/Code/Framework/all-MiniLM-L6-v2"
