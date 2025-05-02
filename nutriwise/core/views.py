@@ -3,10 +3,12 @@ from django.http import HttpResponse
 from django.template import loader
 
 def main(request):
-  template = loader.get_template('main.html')
-  return HttpResponse(template.render(request=request))
+    template = loader.get_template('main.html')
+    return HttpResponse(template.render(request=request))
 
 def chatbot(request):
     return HttpResponse("Hello, chatbot. You're at the polls index.")
 
-
+def scan(request):
+    template = loader.get_template('scan.html')
+    return HttpResponse(template.render(request=request))

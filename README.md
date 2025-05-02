@@ -1,6 +1,7 @@
 # NutriWise
 
 An AI-powered bot that analyzes a product's packaging from a photo and provides personalized recommendations based on the user's specific requirements and goals.
+Use python .\manage.py runserver to run the app.
 
 ## Backend
 
