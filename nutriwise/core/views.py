@@ -38,43 +38,35 @@ def scan(request):
 def upload_image(request):
     print("uploading")
 
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        image_data_url = data.get('data').get('image')
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
 
-        # Remove the prefix (data:image/png;base64,) from the data URL
-        if image_data_url.startswith('data:image/png;base64,'):
-            image_data = image_data_url.replace('data:image/png;base64,', '')
-            image_data = base64.b64decode(image_data)
-
-            # Save the image (you can modify this to save in your preferred location)
-            image_name = 'captured_image.png'
-            image_path = default_storage.save(image_name, ContentFile(image_data))
-
-            user_rep = ""
-
-            # For your user data
-            for key, item in data.get('user').items():
-                user_rep = f"{user_rep} {key}: {item}\n"
-
-            user = User("20", "Male", "70Kg", "170cm", "Gain muscle and get buffed", "intolerant to gluten", "diabetis")
-
-            answer = user.agent_answer(f"media/{image_path}", usepaddle=False)
-
-            print(answer)
-
-            # Delete the image after processing
-            #default_storage.delete(image_path)
-
-            #request.session['answer'] = answer
-
-            return redirect('scan')
-            # Return a JSON response with the answer
-            
-
+    payload = json.loads(request.body)
+    image_data_url = payload.get('data', {}).get('image')
+    if not image_data_url or not image_data_url.startswith('data:image/png;base64,'):
         return JsonResponse({'error': 'Invalid image data'}, status=400)
 
-    return JsonResponse({'error': 'Invalid request method'}, status=400)
+    b64 = image_data_url.split(',',1)[1]
+    img_bytes = base64.b64decode(b64)
+    image_path = default_storage.save('captured_image.png', ContentFile(img_bytes))
+
+    user = User("20", "Male", "70Kg", "170cm", "Gain muscle and get buffed", "intolerant to gluten", "diabetis")
+    answer = user.agent_answer(f"media/{image_path}", usepaddle=False)
+
+    print(answer)
+
+    #request.session['scan_answer'] = answer
+    return JsonResponse({'answer': answer})
+
+    return redirect('scan')
+
+def scan(request):
+    # Pull the answer out (and remove it so it only shows once)
+    answer = request.session.pop('scan_answer', None)
+    return render(request, 'scan.html', {
+        'answer': answer
+    })
+
 
 def profile(request):
     user = request.user
