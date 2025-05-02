@@ -9,4 +9,5 @@ urlpatterns = [
     path('chatbot/', views.chatbot, name='chatbot'),
     path('scan/', views.scan, name='scan'),
     path('upload-image/', views.upload_image, name='upload_image'),
+    path('profile/', views.profile, name='profile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

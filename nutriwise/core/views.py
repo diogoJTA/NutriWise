@@ -14,6 +14,7 @@ from django.core.files.base   import ContentFile
 from django.core.files.storage import default_storage
 from django.http import JsonResponse
 from core.LLM_request.user import User
+from django.contrib import messages
 
 gemini_key = 'AIzaSyDu_isGFBpm7EB_DoMjEI-Q25ihWgsuDtk'
 
@@ -25,6 +26,10 @@ def main(request):
 
 def chatbot(request):
     return HttpResponse("Hello, chatbot. You're at the polls index.")
+
+def profile(request):
+    template = loader.get_template('profile.html')
+    return HttpResponse(template.render(request=request))
 
 def scan(request):
     template = loader.get_template('scan.html')
@@ -71,3 +76,38 @@ def upload_image(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
+def profile(request):
+    user = request.user
+
+    if request.method == 'POST':
+        # grab the new height (and any other fields)
+        new_height = request.POST.get('height')
+        new_weight = request.POST.get('weight')
+        new_age = request.POST.get('age')
+        new_sex = request.POST.get('sex')
+        new_objective = request.POST.get('objective')
+        new_restrictions = request.POST.get('restrictions')
+
+        if not new_height:
+            new_height = 175
+        if not new_weight:
+            new_weight = 70
+        if not new_age:
+            new_age = 25
+        if not new_sex:
+            new_sex = "Male"
+        if new_objective:
+            new_objective = "Perder peso"
+        if new_restrictions:
+            new_restrictions = "intolerant to lactose"
+
+        user = User(new_age, new_sex, new_weight, new_height, new_objective, new_restrictions, " ")
+
+        #user.save()  
+        messages.success(request, "Perfil atualizado com sucesso.")
+        return redirect('profile')  # PRG pattern
+
+    # GET → just render the form pre-filled
+    return render(request, 'profile.html', {
+        'user': user,
+    })

@@ -1,0 +1,211 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Perfil</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #faf8f2;
+      color: #2e3a34;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+      position: relative;
+    }
+    header .back {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .card {
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 1rem;
+      flex: 1;
+    }
+
+    .field-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .field-wrapper .edit-icon {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #6c757d;
+      user-select: none;
+    }
+
+    /* highlight when editing */
+    .field-wrapper.editing input {
+      border-color: #69bd93;
+      box-shadow: 0 0 0 0.2rem rgba(105, 189, 147, .25);
+    }
+
+    .row-cols-2 > .col {
+      flex: 1;
+    }
+
+    /* bottom nav */
+    nav.fixed-bottom {
+      background: #265a40;
+    }
+    nav .container a img {
+      height: 1.5rem;
+      width: auto;
+    }
+    nav .container a {
+      padding: .5rem 0;
+      flex: 1;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="javascript:history.back()" class="back">&larr;</a>
+    Perfil
+  </header>
+
+  <div class="card shadow-sm">
+    <form method="post" action="{% url 'profile' %}">
+      {% csrf_token %}
+
+      <!-- Usuário -->
+      <div class="field-wrapper">
+        <label class="form-label">Nome de usuário</label>
+        <input
+          name="username"
+          type="text"
+          class="form-control"
+          value="{{ request.user.username }}"
+        >
+        <span class="edit-icon">&#9998;</span>
+      </div>
+
+      <!-- Idade -->
+      <div class="field-wrapper">
+        <label class="form-label">Idade</label>
+        <input
+          name="age"
+          type="number"
+          min="0"
+          class="form-control"
+          value="{{ request.user.age }}"
+        >
+        <span class="edit-icon">&#9998;</span>
+      </div>
+
+      <!-- Sexo -->
+      <div class="field-wrapper">
+        <label class="form-label">Sexo</label>
+        <select name="sex" class="form-select">
+          <option value="Masculino" {% if request.user.sex == "Masculino" %}selected{% endif %}>Masculino</option>
+          <option value="Feminino"   {% if request.user.sex == "Feminino"   %}selected{% endif %}>Feminino</option>
+          <option value="Outro"      {% if request.user.sex == "Outro"      %}selected{% endif %}>Outro</option>
+        </select>
+        <span class="edit-icon">&#9998;</span>
+      </div>
+
+      <!-- Peso e Altura side by side -->
+      <div class="row row-cols-2 g-3">
+        <div class="col">
+          <div class="field-wrapper">
+            <label class="form-label">Peso (kg)</label>
+            <input
+              name="weight"
+              type="number"
+              min="0"
+              step="0.1"
+              class="form-control"
+              value="{{ request.user.weight }}"
+            >
+            <span class="edit-icon">&#9998;</span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="field-wrapper">
+            <label class="form-label">Altura (cm)</label>
+            <input
+              name="height"
+              type="number"
+              min="0"
+              class="form-control"
+              value="{{ request.user.height }}"
+            >
+            <span class="edit-icon">&#9998;</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objetivo -->
+      <div class="field-wrapper">
+        <label class="form-label">Objetivo</label>
+        <input
+          name="objective"
+          type="text"
+          class="form-control"
+          value="{{ request.user.objective }}"
+        >
+        <span class="edit-icon">&#9998;</span>
+      </div>
+
+      <!-- Restrições -->
+      <div class="field-wrapper">
+        <label class="form-label">Restrições</label>
+        <input
+          name="restrictions"
+          type="text"
+          class="form-control"
+          value="{{ request.user.restrictions }}"
+        >
+        <span class="edit-icon">&#9998;</span>
+      </div>
+
+      <button type="submit" class="btn btn-success w-100">Guardar alterações</button>
+    </form>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="navbar navbar-dark bg-success fixed-bottom">
+    <div class="container d-flex justify-content-around align-items-center">
+      <a href="/"><img src="{% static 'icons/home.png' %}" alt="Home"></a>
+      <a href="/scan"><img src="{% static 'icons/product_scan.png' %}" alt="Scan"></a>
+      <a href="/chatbot"><img src="{% static 'icons/chat.png' %}" alt="Chatbot"></a>
+      <a href="/nutritionists"><img src="{% static 'icons/food_bascket.png' %}" alt="Nutritionists"></a>
+      <a href="/profile"><img src="{% static 'icons/profile.png' %}" alt="Profile"></a>
+    </div>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Toggle “editing” highlight when pencil is clicked
+    document.querySelectorAll('.field-wrapper').forEach(wrapper => {
+      wrapper.querySelector('.edit-icon').addEventListener('click', () => {
+        wrapper.classList.toggle('editing');
+        const input = wrapper.querySelector('input, select');
+        input.focus();
+      });
+    });
+  </script>
+</body>
+</html>
