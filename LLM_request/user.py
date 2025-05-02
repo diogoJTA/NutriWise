@@ -23,8 +23,11 @@ class User:
             user_prompt += f"{i}: {key} => {value}\n"
         self.user_prompt = user_prompt
         
-    def agent_answer(self, imag_path):
-        paddle_prompt = scan.scan_text(imag_path)
+    def agent_answer(self, imag_path, usepaddle=True):
+        if(usepaddle == True):
+            paddle_prompt = scan.scan_text(imag_path)
+        else:
+            paddle_prompt = "(Not working)"
         user_prompt = self.user_prompt
         system_prompt = self.system_prompt
         answer = request.analyse_product(system_prompt, user_prompt, paddle_prompt, imag_path)
@@ -33,7 +36,7 @@ class User:
 if __name__ == "__main__":
     user = User("20", "Male", "70Kg", "170cm", "Gain muscle and get buffed", "intolerant to gluten", "diabetis")
 
-    print(user.agent_answer("fanta.jpg"))
+    print(user.agent_answer("fanta.jpg", usepaddle=False))
 
 
 
