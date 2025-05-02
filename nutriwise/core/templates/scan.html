@@ -136,6 +136,27 @@
       flex: 1;
       text-align: center;
     }
+    /* Speech bubble style */
+    .speech-bubble {
+      position: relative;
+      background: #e9e9e9;
+      border-radius: .4rem;
+      padding: 1rem;
+      max-width: 80%;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      color: #2e3a34;
+    }
+    .speech-bubble::after {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 0.5rem;
+      border-style: solid;
+      border-color: transparent transparent #e9e9e9 transparent;
+    }
   </style>
 </head>
 <body>
@@ -159,6 +180,14 @@
     <button id="captureButton">
       <img src="{% static 'icons/camera.png' %}" alt="Capturar">
     </button>
+
+    {% if answer %}
+      <div class="speech-bubble">
+        {{ answer }}
+      </div>
+    {% endif %}
+
+
   </main>
 
   <!-- Bottom Navigation Bar -->
@@ -208,18 +237,29 @@
         },
         body: JSON.stringify({
           data: { image: imageDataUrl },
-          user: user
+          user
         }),
       })
-      .then(res => {
-        if (res.redirected) {
-          window.location.href = res.url;
-        } else {
-          return res.json();
+      .then(res => res.json())
+      .then(data => {
+        if (data.answer) {
+          showBubble(data.answer);
         }
       })
       .catch(console.error);
     });
+    function showBubble(text) {
+      // remove any existing bubble
+      document.querySelectorAll('.speech-bubble').forEach(el => el.remove());
+      
+      const bubble = document.createElement('div');
+      bubble.className = 'speech-bubble';
+      bubble.textContent = text;
+
+      // insert it just below the button
+      document.getElementById('captureButton')
+              .insertAdjacentElement('afterend', bubble);
+    }
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

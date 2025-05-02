@@ -58,7 +58,7 @@ def analyse_product(system_prompt, user_prompt, paddle_prompt, img_path):
     image = Image.open(img_path)
 
     response = client.models.generate_content(
-        model="models/gemini-2.5-pro-exp-03-25", #"models/gemini-2.5-pro-exp-03-25" #"models/gemini-2.0-flash-exp"
+        model="models/gemini-2.5-flash-preview-04-17", #"models/gemini-2.5-pro-exp-03-25" #"models/gemini-2.0-flash-exp"
         contents=[ultimate_prompt, image],
         config=types.GenerateContentConfig(response_modalities=['Text'], temperature = 1.4)
     )
