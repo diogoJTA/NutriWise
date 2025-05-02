@@ -3,7 +3,6 @@
 
 #Import necessary libraries
 from paddleocr import PaddleOCR, draw_ocr
-import matplotlib.pyplot as plt
 from PIL import Image
 import requests
 import os # Import os to check if font path exists later if needed (optional)
