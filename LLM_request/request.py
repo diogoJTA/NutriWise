@@ -38,9 +38,31 @@ def create_prompt(prompt: str, image_path: str = None, system_prompt: str = 'You
     return final_prompt
 
 def chat_google_model(prompt:str = None, image_path:str = None, system_prompt:str = None, few_shot_prompt:str = None):
+    """
+    This function abstracts interaction with gemini
+    inputs: prompts and image model
+    output: response text
+    """
     
     final_prompt = create_prompt(prompt, image_path=image_path, system_prompt=system_prompt, few_shot_prompt=few_shot_prompt)
     response = chat.send_message(message=final_prompt)
+    return response.text
+
+def analyse_product(system_prompt, user_prompt, paddle_prompt, img_path):
+    """
+    Asks LLM to analyze product and returns response based on given prompts
+    (Used in user.py)
+    """
+    ultimate_prompt = f'''[PT] Prompt de Sistema:{system_prompt}\n----\nVais começar por receber as informações do utilizador. Garante que a tua resposta vai de acordo aos objetivos e dados da pessoa, ESPECIALMENTE A SATISFAÇÃO DAS RESTRIÇÕES/DOENÇAS DO UTILISADOR:{user_prompt}\n----\nVais por fim receber tanto o resultado OCR da imagem, como a própria imagem (para esclarecer qualquer dúvida):{paddle_prompt}'''
+
+    image = Image.open(img_path)
+
+    response = client.models.generate_content(
+        model="models/gemini-2.5-pro-exp-03-25", #"models/gemini-2.5-pro-exp-03-25" #"models/gemini-2.0-flash-exp"
+        contents=[ultimate_prompt, image],
+        config=types.GenerateContentConfig(response_modalities=['Text'], temperature = 1.4)
+    )
+
     return response.text
 
 if __name__ == "__main__":
