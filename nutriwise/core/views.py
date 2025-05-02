@@ -54,9 +54,9 @@ def upload_image(request):
 
             user = User("20", "Male", "70Kg", "170cm", "Gain muscle and get buffed", "intolerant to gluten", "diabetis")
 
-            answer = user.agent_answer(image_path, usepaddle=False)
+            answer = user.agent_answer(f"media/{image_path}", usepaddle=False)
 
-            #print(answer)
+            print(answer)
 
             # Delete the image after processing
             #default_storage.delete(image_path)
