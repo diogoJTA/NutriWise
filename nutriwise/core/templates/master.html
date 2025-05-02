@@ -22,6 +22,32 @@
     {% block content %}
     {% endblock %}
 
+    <!-- Bottom Navigation Bar -->
+    <nav class="navbar navbar-expand fixed-bottom navbar-dark bg-success">
+        <div class="container d-flex justify-content-around">
+            <a href="/" class="input-area-icon_nice">
+                <img src="{% static 'icons/home.png' %}" alt="Send"> {# Use your send icon #}
+                </button>
+            </a>
+            <a href="/scan" class="input-area-icon_nice">
+                <img src="{% static 'icons/product_scan.png' %}" alt="Send"> {# Use your send icon #}
+                </button>
+            </a>
+            <a href="/chatbot" class="input-area-icon_nice_1">
+                <img src="{% static 'icons/chat.png' %}" alt="Send"> {# Use your send icon #}
+                </button>
+            </a>
+            <a href="/nutritionists" class="input-area-icon_nice_2">
+                <img src="{% static 'icons/food_bascket.png' %}" alt="Send"> {# Use your send icon #}
+                </button>
+            </a>
+            <a href="/profile" class="input-area-icon_nice">
+                <img src="{% static 'icons/profile.png' %}" alt="Send"> {# Use your send icon #}
+                </button>
+            </a>
+        </div>
+    </nav>
+
 
 
     
