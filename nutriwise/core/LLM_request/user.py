@@ -1,5 +1,4 @@
-import scan
-import request
+from core.LLM_request import scan, request
 
 class User:
     def __init__(self, age, sex, weight, height, objective = "None", restrictions = "None", diseases = "None"):

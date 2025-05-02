@@ -2,13 +2,18 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.shortcuts import redirect
-from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import json
 import base64
 from google import genai
 from google.genai import types
 from PIL import Image
+import uuid
+from django.shortcuts     import redirect, render
+from django.core.files.base   import ContentFile
+from django.core.files.storage import default_storage
+from django.http import JsonResponse
+from core.LLM_request.user import User
 
 gemini_key = 'AIzaSyDu_isGFBpm7EB_DoMjEI-Q25ihWgsuDtk'
 
@@ -47,11 +52,14 @@ def upload_image(request):
             for key, item in data.get('user').items():
                 user_rep = f"{user_rep} {key}: {item}\n"
 
-            #answer = agent_answer(image_path, user_rep)
+            user = User("20", "Male", "70Kg", "170cm", "Gain muscle and get buffed", "intolerant to gluten", "diabetis")
+
+            answer = user.agent_answer(image_path, usepaddle=False)
+
             #print(answer)
 
             # Delete the image after processing
-            default_storage.delete(image_path)
+            #default_storage.delete(image_path)
 
             #request.session['answer'] = answer
 
@@ -62,5 +70,4 @@ def upload_image(request):
         return JsonResponse({'error': 'Invalid image data'}, status=400)
 
     return JsonResponse({'error': 'Invalid request method'}, status=400)
-
 

@@ -206,7 +206,10 @@
           "Content-Type": "application/json",
           "X-CSRFToken": "{{ csrf_token }}",
         },
-        body: JSON.stringify({ image: imageDataUrl, user }),
+        body: JSON.stringify({
+          data: { image: imageDataUrl },
+          user: user
+        }),
       })
       .then(res => {
         if (res.redirected) {
