@@ -6,6 +6,8 @@ Use python .\manage.py runserver to run the app.
 ## Backend
 
 It uses gemini prompts to achieve the required objective
+It is on LLM_request directory
+The main file is user.py
 
 ## Frontend
 
