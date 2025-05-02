@@ -1,0 +1,403 @@
+.chat-input-area {
+    display: flex; /* Arrange items inside horizontally */
+    align-items: center; /* Vertically center items in the input bar */
+    background-color: #a7d7c5; /* Mint green background */
+    border-radius: 25px; /* Rounded corners for the bar */
+    padding: 0.5rem 0.75rem; /* Padding inside the bar */
+    border: 1px solid #7ab5a1; /* Slightly darker border */
+    margin: 0.5rem; /* Add some margin around the input bar */
+    flex-shrink: 0; /* Prevent input area from shrinking */
+    position: fixed;
+    bottom: 4rem;
+    left: 0;         /* Stick to the left edge */
+    right: 0; 
+}
+
+/* Style for the icon buttons (upload and send) */
+.input-area-icon-btn {
+    background: none;
+    border: none;
+    padding: 0.4rem;
+    margin: 0 0.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease-in-out;
+}
+.input-area-icon-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Slight hover effect */
+}
+
+.input-area-icon-btn img {
+    height: 26px; /* Icon size */
+    width: 26px;
+}
+
+.input-area-icon_nice img{
+    height: 2em; /* Icon size */
+    width: 2em;
+}
+
+.input-area-icon_nice_1 img{
+    height: 4em; /* Icon size */
+    width: 4em;
+}
+
+.input-area-icon_nice_2 img{
+    height: 3em; /* Icon size */
+    width: 3em;
+}
+
+/* Specific style for the upload image label */
+#imageUploadLabel {
+    /* Inherits .input-area-icon-btn styles */
+    margin-right: 0.5rem; /* Space between upload icon and text input */
+}
+
+/* Make sure the actual file input is hidden */
+#id_user_image {
+    display: none;
+}
+
+/* Style the text input field */
+#id_user_text {
+    flex-grow: 1; /* Take available horizontal space */
+    border: none;
+    background: transparent;
+    outline: none;
+    color: #333;
+    font-size: 1rem;
+    padding: 0.5rem 0.2rem;
+    margin: 0 0.5rem; /* Horizontal margin */
+}
+
+#id_user_text::placeholder {
+    color: #5f8d7e;
+    opacity: 0.9;
+}
+
+/* Style for the send button icon */
+.send-btn {
+    /* Inherits .input-area-icon-btn styles */
+    margin-left: 0.5rem; /* Space between text input and send icon */
+}
+
+
+.navbar-costum {
+    background-color: #194105; /*194105*/
+}
+
+.btn-navbar {
+    background-color: #6aa84fff;
+    margin-right: 1em;
+}
+
+#dashboard {
+    border: 1px black solid;
+}
+
+#chatbox {
+    border: 1px black solid;
+    color: green;
+}
+
+.chat-history {
+    flex-grow: 1; /* REQUIRED: Allows this element to grow and fill available space */
+    overflow-y: auto; /* REQUIRED: Adds vertical scrollbar ONLY when content exceeds height */
+    min-height: 0; /* IMPORTANT FLEXBOX FIX */
+    padding: 1rem 0.5rem;
+    background-color: #FFF9E6;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-bottom: 10em;
+
+}
+
+.chat-message {
+    padding: 0.6rem 1rem;
+    border-radius: 18px; /* Slightly more rounded */
+    max-width: 80%;
+    word-wrap: break-word;
+    line-height: 1.4; /* Improve readability */
+    position: relative; /* For potential future additions like timestamps */
+}
+
+.user-message {
+    background-color: #a7d7c5; /* Use the mint green color */
+    color: #333;
+    margin-left: auto; /* Align user messages to the right */
+    margin-right: 0; /* Ensure it touches the right */
+    align-self: flex-end; /* Align item itself to the end of the flex container */
+    border-bottom-right-radius: 5px; /* Add a slight tail effect */
+}
+
+.bot-message {
+    background-color: #e9ecef; /* Light grey for bot */
+    color: #333;
+    margin-right: auto; /* Align bot messages to the left */
+    margin-left: 0; /* Ensure it touches the left */
+    align-self: flex-start; /* Align item itself to the start of the flex container */
+    border-bottom-left-radius: 5px; /* Add a slight tail effect */
+}
+
+/* Style for images within chat bubbles */
+.chat-message img.inline-image {
+    max-width: 100%; /* Prevent image overflow */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Rounded corners for image */
+    margin-top: 8px; /* Space between text and image */
+    display: block; /* Ensure image takes its own line */
+}
+
+.suggestion-buttons-container {
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center the buttons */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 0.8rem; /* Creates space *between* the buttons */
+}
+
+.suggestion-btn {
+    /* Keep the styles from previous examples: */
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    padding: 0.75rem 1rem;
+    /* margin: 0 0.5rem; NO MARGIN needed if using gap */
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #495057;
+    transition: background-color 0.2s ease-in-out;
+    appearance: none; -webkit-appearance: none;
+    text-align: left;
+}
+
+body {
+    background-color: #FFF9E6; /* Amarelo bem clarinho */
+}
+
+
+
+
+.dashboard-card {
+    background: white; /* Alterado para branco para combinar */
+    border-radius: 12px; /* Mesmo arredondamento da receita */
+    padding: 15px; /* Igual ao recipe-card */
+    max-width: 350px; /* Ajustado para o mesmo tamanho */
+    margin: auto;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Igual ao recipe-card */
+    position: relative; /* Para manter o botão de "+" */
+    border: none; /* Remove a borda extra */
+}
+
+
+/* Estilos para o título */
+.calories-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2f554f;
+}
+
+
+/* Estilos para a caixa de calorias */
+.calories-box {
+    /*display: flex;  Já gerenciado com Bootstrap (d-flex) */
+    /*justify-content: space-between; Já gerenciado com Bootstrap */
+    /*align-items: center;  Já gerenciado com Bootstrap*/
+    background: white;
+    border: 2px solid #2f554f;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+
+
+
+
+.progress {
+    background: #d9f0e1;
+    border-radius: 20px;
+    /* padding: 5px; Removido para não interferir com os estilos do Bootstrap */
+    margin: 10px 0;
+    /*width: 100%; Removido, o Bootstrap já gerencia a largura */
+    /*display: flex;   Removido, o Bootstrap já gerencia o display*/
+    /*align-items: center; Removido, o Bootstrap já gerencia o alinhamento*/
+    height: 1rem; /* Altura da barra de progresso */
+}
+
+.progress-bar {
+    /*background: #2f554f; Removido, pois agora está usando a classe bg-success do Bootstrap */
+    /*width: 75%;  Gerenciado pelo atributo style="width: 75%" no template */
+    padding: 5px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+.calories-text {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Estilos para o botão de adicionar */
+
+
+.add-button {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.send-btn {
+/* Inherits .input-area-icon-btn styles */
+    margin-left: 0.5rem; /* Space between text input and send */
+}
+
+.chat-container {
+    display: flex; /* REQUIRED: Use Flexbox */
+    flex-direction: column; /* REQUIRED: Stack children vertically */
+    /* REQUIRED: Define a height. Adjust '120px' based on YOUR header/footer height */
+    /* height: calc(100vh - 120px);*/
+    background-color: #f8f9fa; /* Or your preferred background */
+        /* Padding might be better on child elements like history/input */
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden; /* Prevent container itself from scrolling */
+}
+
+
+/*-----------------------------------------------*/
+
+
+.chat-suggestions { /* Center suggestions */
+    margin-top: 300px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.chat-suggestions h2 { font-weight: bold; margin-bottom: 1rem; color: #333; }
+.suggestion-btn { /* Style as buttons, not actual <button type="submit"> initially */
+    background-color: #fff; border: 1px solid #dee2e6; border-radius: 20px;
+    padding: 0.75rem 1rem; margin: 0 0.5rem; font-size: 0.9rem; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 0.5rem; color: #495057;
+    transition: background-color 0.2s ease-in-out;
+    /* Remove button default styles */
+    appearance: none; -webkit-appearance: none; text-align: left;
+}
+.suggestion-btn:hover { background-color: #e9ecef; }
+.suggestion-btn img { height: 24px; width: 24px; }
+
+
+
+
+
+
+
+.add-button:hover {
+    background: #3c6e66; /* Estilo de hover específico */
+}
+
+
+/* # RECEITAS  */
+
+.title {
+    font-size: 22px;
+    color: #355E3B;
+    font-weight: bold;
+}
+
+.recipe-card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    max-width: 350px;
+    margin: auto;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    cursor: pointer; /* Faz parecer clicável */
+    /* transition: transform 0.2s ease, box-shadow 0.2s ease; */
+}
+
+.recipe-img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.recipe-info {
+    text-align: center;
+    padding: 10px;
+}
+
+.protein {
+    font-weight: bold;
+    color: #333;
+}
+
+.heart-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #d9534f;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* 
+# NAVBAR DE BAIXO  */
+
+.bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #194105;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item {
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+    flex-grow: 1;
+}
+
+.nav-item i {
+    font-size: 20px;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.nav-item:hover {
+    color: #6aa84f;
+}
+
+.logo {
+    height: 3em;
+}
