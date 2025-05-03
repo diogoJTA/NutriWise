@@ -183,7 +183,7 @@
 
     {% if answer %}
       <div class="speech-bubble">
-        {{ answer }}
+        {{ answer|safe }}
       </div>
     {% endif %}
 
@@ -251,12 +251,11 @@
     function showBubble(text) {
       // remove any existing bubble
       document.querySelectorAll('.speech-bubble').forEach(el => el.remove());
-      
+
       const bubble = document.createElement('div');
       bubble.className = 'speech-bubble';
-      bubble.textContent = text;
+      bubble.innerHTML = text;  // <-- change this line!
 
-      // insert it just below the button
       document.getElementById('captureButton')
               .insertAdjacentElement('afterend', bubble);
     }

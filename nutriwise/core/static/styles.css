@@ -181,7 +181,13 @@ body {
     background-color: #FFF9E6; /* Amarelo bem clarinho */
 }
 
-
+.formatted-answer p {
+    margin-bottom: 1em;
+    line-height: 1.6;
+  }
+.formatted-answer strong {
+    font-weight: bold;
+  }
 
 
 .dashboard-card {

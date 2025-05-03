@@ -15,6 +15,7 @@ from django.core.files.storage import default_storage
 from django.http import JsonResponse
 from core.LLM_request.user import User
 from django.contrib import messages
+import markdown
 
 gemini_key = 'AIzaSyDu_isGFBpm7EB_DoMjEI-Q25ihWgsuDtk'
 
@@ -50,8 +51,11 @@ def upload_image(request):
     img_bytes = base64.b64decode(b64)
     image_path = default_storage.save('captured_image.png', ContentFile(img_bytes))
 
-    user = User("20", "Male", "70Kg", "170cm", "Gain muscle and get buffed", "intolerant to gluten", "diabetis")
+    user = User("20", "Male", "70Kg", "170cm", "Gain muscle and get buffed", "intolerant to gluten", "Diabetes")
     answer = user.agent_answer(f"media/{image_path}", usepaddle=False)
+
+    formatted_answer = markdown.markdown(answer.strip())
+    answer = formatted_answer
 
     print(answer)
 
