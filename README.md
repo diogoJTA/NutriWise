@@ -12,3 +12,7 @@ The main file is user.py
 ## Frontend
 
 It uses django in order to build the front end application
+
+## Branches
+
+The main branch is optimized for computer, whileas the mobile-version is optimized for mobile (a little bit).
