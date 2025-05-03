@@ -41,8 +41,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "core.apps.CoreConfig"
+    "core.apps.CoreConfig",
+    #Server for mobile 
+    'sslserver'
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
